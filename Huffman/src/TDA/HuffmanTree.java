@@ -75,7 +75,8 @@ public class HuffmanTree {
     }
 
     public static String decodificar(String texto, HashMap<String, String> mapa) {
-        char[] bits = texto.toCharArray();
+        String binario= TDAUtil.hexadecimalBinario(texto);
+        char[] bits = binario.toCharArray();
         StringBuilder result= new StringBuilder();
         StringBuilder temp= new StringBuilder();
         for (int i = 0; i < bits.length; i++) {

@@ -76,12 +76,12 @@ public class MainController implements Initializable {
     @FXML
     private void descomprimir(javafx.event.ActionEvent event) {
         LinkedList<String>  rutas =showMultiFileChooser();
-        HashMap<String,String> mapDecode=obtenerMapa(rutas.get(1));
-        
+        HashMap<String,String> mapDecode=reverse(obtenerMapa(rutas.get(1)));
         String texto= TDAUtil.leerTexto(rutas.get(0));
         String decode=HuffmanTree.decodificar(texto, mapDecode);
+        System.out.println(decode);
          try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutas.get(0)))){
-            bw.write(texto);
+            bw.write(texto);      
         } catch (IOException ex) {
             Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -125,5 +125,10 @@ public class MainController implements Initializable {
         }
         return map;
     }
-    
+    private <K,V> HashMap<V,K> reverse(Map<K,V> map) {
+    HashMap<V,K> rev = new HashMap<V, K>();
+    for(Map.Entry<K,V> entry : map.entrySet())
+        rev.put(entry.getValue(), entry.getKey());
+    return rev;
+}
 }
