@@ -75,8 +75,23 @@ public class HuffmanTree {
     }
 
     public static String decodificar(String texto, HashMap<String, String> mapa) {
-        return null;
+        char[] bits = texto.toCharArray();
+        StringBuilder result= new StringBuilder();
+        StringBuilder temp= new StringBuilder();
+        for (int i = 0; i < bits.length; i++) {
+            temp.append(bits[i]);
+            String val = mapa.get(temp.toString());
+            if (val == null) {
+                continue;
+            }
+            result.append(val);
+            temp.setLength(0);
+        }
 
+        return result.toString();
+    
     }
+
+    
 
 }
