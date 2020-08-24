@@ -53,7 +53,7 @@ public class TDAUtil {
         return frecuencias;
     }
     
-    public String binarioHexadecimal(String binario){
+    public static String binarioHexadecimal(String binario){
         StringBuilder sb = new StringBuilder();
         int espaciosExtras = binario.length()%4;
         binario+= "0".repeat(espaciosExtras);

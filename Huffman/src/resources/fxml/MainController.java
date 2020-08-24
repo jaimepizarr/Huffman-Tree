@@ -5,9 +5,11 @@
  */
 package resources.fxml;
 
+import TDA.HuffmanTree;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,13 +36,37 @@ public class MainController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void singleFileChooser(javafx.event.ActionEvent event) {
-            FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new ExtensionFilter("TXT files (.txt)", ".txt"));
+          
+    
+    private String showFileChooser(){
+    FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new ExtensionFilter("TXT files (.txt)", "*.txt"));
         File f= fc.showOpenDialog(null);
         if(f!=null){
-        System.out.println(f.getAbsolutePath());}
+          return f.getAbsolutePath();
+        
+        }
+        return null;
+      }
+
+    @FXML
+    private void descomprimir(javafx.event.ActionEvent event) {
+        String ruta =showFileChooser();
+        
     }
-    
+
+    @FXML
+    private void comprimir(javafx.event.ActionEvent event) {
+        String ruta =showFileChooser();
+        String archivo =TDA.TDAUtil.leerTexto(ruta);
+        HashMap<String,Integer> frecuencias =TDA.TDAUtil.calcularFrecuencias(archivo);
+        HuffmanTree arbol = new HuffmanTree();
+        arbol.calcularArbol(frecuencias);
+        HashMap<String,String> mapaHuffman=arbol.calcularCodigos();
+        String binario=TDA.HuffmanTree.codificar(archivo, mapaHuffman);
+        String compreser =TDA.TDAUtil.binarioHexadecimal(binario);
+        
+        TDA.TDAUtil.guardarTexto(ruta, compreser, mapaHuffman);
+        
+    }
 }
