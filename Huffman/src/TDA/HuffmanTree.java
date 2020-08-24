@@ -56,10 +56,11 @@ public class HuffmanTree {
     private void calcularCodigos(HashMap<String, String> mapa, String codigo, Node n) {
         if (n.left == null && n.right == null) {
             mapa.put(n.data, codigo);
+            
+        }else{
+            calcularCodigos(mapa, "0"+codigo , n.left);
+            calcularCodigos(mapa, "1"+codigo , n.right);
         }
-        calcularCodigos(mapa, codigo + "0", n.left);
-        calcularCodigos(mapa, codigo + "1", n.right);
-
     }
 
     
