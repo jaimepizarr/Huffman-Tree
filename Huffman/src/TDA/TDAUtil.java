@@ -73,7 +73,6 @@ public class TDAUtil {
     }
     
     
-    
     public static  String hexadecimalBinario(String hexadecimal){
        StringBuilder sb = new StringBuilder();
        char[] numeros = hexadecimal.toCharArray();
@@ -83,9 +82,7 @@ public class TDAUtil {
                 String hex = String.valueOf(hexa);
                 int decimal = Integer.parseInt(hex,16);
                 String bin = Integer.toString(decimal,2);
-                if(bin.length()<4){
-                    binario.append("0".repeat(4- bin.length()));    
-                }
+                binario.append("0".repeat(4- bin.length()));    
                 binario.append(bin);
                 sb.append(binario);
             }

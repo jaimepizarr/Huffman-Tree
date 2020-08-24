@@ -22,8 +22,7 @@ public class Main {
                 int decimal = Integer.parseInt(hex,16);
                 String bin = Integer.toString(decimal,2);
                 if(bin.length()<4){
-                    binario.append("0".repeat(4- bin.length()));
-                    
+                    binario.append("0".repeat(4- bin.length()));    
                 }
                 binario.append(bin);
                 sb.append(binario);
@@ -36,7 +35,9 @@ public class Main {
     }
     
     public static void main(String[] args){
-        String hexa = "249276DB6D80005B6DB64924FFFFFF555554--";
-        System.out.println(hexadecimalBinario(hexa));
+        //String hexa = "249276DB6D80005B6DB64924FFFFFF555554--";
+        //System.out.println(hexadecimalBinario(hexa));
+        
+        System.out.println("_".repeat(0));
     }
 }
