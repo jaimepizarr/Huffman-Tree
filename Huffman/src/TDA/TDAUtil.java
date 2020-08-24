@@ -57,16 +57,12 @@ public class TDAUtil {
         StringBuilder sb = new StringBuilder();
         int espaciosExtras = binario.length()%4;
         binario+= "0".repeat(espaciosExtras);
-        int i =0;
-
-        while(i<binario.length()){
+        for(int i = 0; i<binario.length();i+=4){
             char[] array = new char[4];
             binario.getChars(i, i+4, array, 0);
             int decimal = Integer.parseInt(String.copyValueOf(array),2);
             String hexadecimal = Integer.toString(decimal, 16).toUpperCase();
-            
             sb.append(hexadecimal);
-            i+=4;
         }
         sb.append("-".repeat(espaciosExtras));
         return sb.toString();
