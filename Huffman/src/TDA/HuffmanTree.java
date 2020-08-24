@@ -62,9 +62,15 @@ public class HuffmanTree {
 
     }
 
+    
     public static String codificar(String texto, HashMap<String, String> mapa) {
-        return null;
-
+        StringBuilder txtCodificado = new StringBuilder();
+        for (char current : texto.toCharArray()) {
+            String codigo = mapa.get(Character.toString(current));
+            txtCodificado.append(codigo);
+     
+        }
+        return txtCodificado.toString();
     }
 
     public static String decodificar(String texto, HashMap<String, String> mapa) {
