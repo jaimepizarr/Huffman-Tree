@@ -5,9 +5,8 @@
  */
 package resources.fxml;
 
-import TDA.HuffmanTree;
-import TDA.TDAUtil;
-import java.awt.event.ActionEvent;
+import tda.HuffmanTree;
+import tda.TDAUtil;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
