@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="327.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="resources.fxml.MainController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="327.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.fxml.MainController">
    <children>
       <Pane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #2D3349;">
          <children>
@@ -16,9 +15,8 @@
                   <Image url="@../images/logoDS.png" />
                </image>
             </ImageView>
-            <Button id="ButtonArchivo" layoutX="84.0" layoutY="250.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="182.0" stylesheets="@../css/style.css" text="Seleccionar Archivo" />
-            <Button id="ButtonDescomprimir" layoutX="100.0" layoutY="371.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="151.0" stylesheets="@../css/style.css" text="Descomprimir" />
-            <Button id="ButtonComprimir" layoutX="100.0" layoutY="310.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="151.0" stylesheets="@../css/style.css" text="Comprimir" />
+            <Button id="ButtonDescomprimir" fx:id="btnDescomprimir" layoutX="100.0" layoutY="371.0" mnemonicParsing="false" onAction="#singleFileChooser" prefHeight="27.0" prefWidth="151.0" stylesheets="@../css/style.css" text="Descomprimir" />
+            <Button id="ButtonComprimir" fx:id="btnComprimir" layoutX="100.0" layoutY="310.0" mnemonicParsing="false" onAction="#singleFileChooser" prefHeight="27.0" prefWidth="151.0" stylesheets="@../css/style.css" text="Comprimir" />
             <ImageView fitHeight="38.0" fitWidth="135.0" layoutX="138.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo-ESPOL.png" />
