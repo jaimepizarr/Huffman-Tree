@@ -81,7 +81,7 @@ public class MainController implements Initializable {
         String decode=HuffmanTree.decodificar(texto, mapDecode);
         System.out.println(decode);
          try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutas.get(0)))){
-            bw.write(texto);      
+            bw.write(decode);      
         } catch (IOException ex) {
             Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
