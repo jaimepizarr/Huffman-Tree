@@ -38,7 +38,7 @@ public class HuffmanTree {
         while (colaFq.size() > 1) {
             Node nd1 = colaFq.poll();
             Node nd2 = colaFq.poll();
-            Node padre = new Node(null, nd1.fq + nd2.fq);
+            Node padre = new Node(nd1.data+nd2.data, nd1.fq + nd2.fq);
             padre.left = nd1;
             padre.right = nd2;
             colaFq.offer(padre);
@@ -58,8 +58,8 @@ public class HuffmanTree {
             mapa.put(n.data, codigo);
             
         }else{
-            calcularCodigos(mapa, "0"+codigo , n.left);
-            calcularCodigos(mapa, "1"+codigo , n.right);
+            calcularCodigos(mapa, codigo+"0", n.left);
+            calcularCodigos(mapa, codigo+"1" , n.right);
         }
     }
 
