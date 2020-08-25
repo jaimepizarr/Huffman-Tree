@@ -2,7 +2,7 @@
 
 Implementación del Arbol Huffman para la construcción del código de Huffman y aplicarlo en la compresión de archivos.
 
-![Huffman%20Tree%20f60747aa20b94455922e6c1c3a282a81/Untitled.png](Huffman%20Tree%20f60747aa20b94455922e6c1c3a282a81/Untitled.png)
+![Huffman%20Tree%20f60747aa20b94455922e6c1c3a282a81/Untitled.png](https://github.com/jaimepizarr/Huffman-Tree/blob/master/images/Untitled.png?raw=true)
 
 El algoritmo consiste en la creación de un [árbol binario](https://es.wikipedia.org/wiki/%C3%81rbol_binario) que tiene cada uno de los símbolos por hoja, y construido de tal forma que siguiéndolo desde la raíz a cada una de sus hojas se obtiene el código Huffman asociado a él.
 
