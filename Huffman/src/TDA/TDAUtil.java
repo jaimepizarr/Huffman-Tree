@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import resources.alerts.ErrorAlert;
 
 /**
  *
@@ -25,21 +27,25 @@ import java.util.logging.Logger;
  */
 public class TDAUtil {
     
+    private TDAUtil(){
+        throw new IllegalStateException("Utility class");
+    }
+    
     public static String leerTexto(String nombre){
         
         try(BufferedReader br = new BufferedReader(new FileReader(nombre))){
             return br.readLine();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorAlert.alertError(ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorAlert.alertError(ex.getMessage());
         }
         return null;
         
     }
     
     
-    public static HashMap<String, Integer> calcularFrecuencias(String texto){
+    public static Map<String, Integer> calcularFrecuencias(String texto){
         HashMap<String,Integer> frecuencias = new HashMap<>();
         char[] letras = texto.toCharArray();
         for(char letra: letras){
@@ -91,16 +97,16 @@ public class TDAUtil {
     
     public static void guardarTexto (String nombreArchivo, String texto, HashMap<String,String> mapa){
         guardarTexto(nombreArchivo,texto);
-        guardarTexto(mapa,nombreArchivo+"_compress.txt");
+        guardarTexto(mapa,nombreArchivo.split(".txt")[0]+"_compress.txt");
     }
     
     private static void guardarTexto(HashMap<String,String> mapa,String nombre){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nombre))){
             oos.writeObject(mapa);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorAlert.alertError(ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorAlert.alertError(ex.getMessage());
         }
     }
     
@@ -113,16 +119,14 @@ public class TDAUtil {
     }
     
     
-    public static HashMap<String,String> leerMapa (String nombreArchivo){
+    public static Map<String,String> leerMapa (String nombreArchivo){
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreArchivo))){
             HashMap<String,String> mapa = (HashMap<String,String>) ois.readObject();
             return mapa;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            ErrorAlert.alertError(ex.getMessage());
         }
         return null;
     }

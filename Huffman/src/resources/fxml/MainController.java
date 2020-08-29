@@ -5,14 +5,13 @@
  */
 package resources.fxml;
 
-import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
 import tda.HuffmanTree;
 import tda.TDAUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,13 +21,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import resources.alerts.ErrorAlert;
 /**
  * FXML Controller class
  *
@@ -46,7 +44,7 @@ public class MainController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //initialize controller
     }    
 
           
@@ -62,7 +60,7 @@ public class MainController implements Initializable {
         return null;
       }
    private LinkedList<String> showMultiFileChooser(){
-       LinkedList<String> rutas = new LinkedList<String>();
+       LinkedList<String> rutas = new LinkedList<>();
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().add(new ExtensionFilter("TXT files (.txt)", "*.txt"));
         List<File> f= fc.showOpenMultipleDialog(null);
@@ -76,14 +74,13 @@ public class MainController implements Initializable {
     @FXML
     private void descomprimir(javafx.event.ActionEvent event) {
         LinkedList<String>  rutas =showMultiFileChooser();
-        HashMap<String,String> mapDecode=reverse(obtenerMapa(rutas.get(1)));
+        Map<String,String> mapDecode=reverse(obtenerMapa(rutas.get(1)));
         String texto= TDAUtil.leerTexto(rutas.get(0));
         String decode=HuffmanTree.decodificar(texto, mapDecode);
-        System.out.println(decode);
-         try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutas.get(0)))){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutas.get(0)))){
             bw.write(decode);      
         } catch (IOException ex) {
-            Logger.getLogger(TDAUtil.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorAlert.alertError(ex.getMessage());
         }
     }
         
@@ -95,10 +92,10 @@ public class MainController implements Initializable {
     private void comprimir(javafx.event.ActionEvent event) {
         String ruta =showFileChooser();
         String archivo =TDAUtil.leerTexto(ruta);
-        HashMap<String,Integer> frecuencias =TDAUtil.calcularFrecuencias(archivo);
+        Map<String,Integer> frecuencias =(HashMap<String,Integer>)TDAUtil.calcularFrecuencias(archivo);
         HuffmanTree arbol = new HuffmanTree();
         arbol.calcularArbol(frecuencias);
-        HashMap<String,String> mapaHuffman=arbol.calcularCodigos();
+        HashMap<String,String> mapaHuffman=(HashMap<String,String>) arbol.calcularCodigos();
         String binario=HuffmanTree.codificar(archivo, mapaHuffman);
         String compreser =TDAUtil.binarioHexadecimal(binario);
         
@@ -106,29 +103,25 @@ public class MainController implements Initializable {
         
     }
     
-    private HashMap<String,String> obtenerMapa(String ruta){
-        HashMap<String,String> map = null;
-        try {
-            FileInputStream fis = new FileInputStream(ruta);
-            ObjectInputStream sis = new ObjectInputStream(fis);
-            map= (HashMap<String,String>) sis.readObject();
-            sis.close();
+    private Map<String,String> obtenerMapa(String ruta){
+        HashMap<String,String> map = new HashMap<>();
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
+            map= (HashMap<String,String>) ois.readObject();
         }
         catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            ErrorAlert.alertError(ex.getMessage());
         }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        catch(ClassNotFoundException ex) {
-            ex.printStackTrace();
+        catch (IOException | ClassNotFoundException ex) {
+            ErrorAlert.alertError(ex.getMessage());
         }
         return map;
     }
-    private <K,V> HashMap<V,K> reverse(Map<K,V> map) {
-    HashMap<V,K> rev = new HashMap<V, K>();
-    for(Map.Entry<K,V> entry : map.entrySet())
-        rev.put(entry.getValue(), entry.getKey());
-    return rev;
-}
+    private <K,V>Map<V,K> reverse(Map<K,V> map) {
+        HashMap<V,K> rev = new HashMap<>();
+        for(Map.Entry<K,V> entry : map.entrySet())
+            rev.put(entry.getValue(), entry.getKey());
+        return rev;
+    }
+    
+    
 }

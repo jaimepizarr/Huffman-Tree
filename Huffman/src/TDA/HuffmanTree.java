@@ -6,6 +6,7 @@
 package tda;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
@@ -30,7 +31,7 @@ public class HuffmanTree {
         }
     }
 
-    public void calcularArbol(HashMap<String, Integer> mapa) {
+    public void calcularArbol(Map<String, Integer> mapa) {
         PriorityQueue<Node> colaFq = new PriorityQueue<>((Node nd1, Node nd2) -> nd1.fq - nd2.fq);
         for (Entry<String, Integer> e : mapa.entrySet()) {
             colaFq.offer(new Node(e.getKey(), e.getValue()));
@@ -47,13 +48,13 @@ public class HuffmanTree {
         root = colaFq.poll();
     }
 
-    public HashMap<String, String> calcularCodigos() {
+    public Map<String, String> calcularCodigos() {
         HashMap<String, String> mapa = new HashMap<>();
         calcularCodigos(mapa, "", root);
         return mapa;
     }
 
-    private void calcularCodigos(HashMap<String, String> mapa, String codigo, Node n) {
+    private void calcularCodigos(Map<String, String> mapa, String codigo, Node n) {
         if (n.left == null && n.right == null) {
             mapa.put(n.data, codigo);
             
@@ -64,7 +65,7 @@ public class HuffmanTree {
     }
 
     
-    public static String codificar(String texto, HashMap<String, String> mapa) {
+    public static String codificar(String texto, Map<String, String> mapa) {
         StringBuilder txtCodificado = new StringBuilder();
         for (char current : texto.toCharArray()) {
             String codigo = mapa.get(Character.toString(current));
@@ -74,7 +75,7 @@ public class HuffmanTree {
         return txtCodificado.toString();
     }
 
-    public static String decodificar(String texto, HashMap<String, String> mapa) {
+    public static String decodificar(String texto, Map<String, String> mapa) {
         String binario= TDAUtil.hexadecimalBinario(texto);
         char[] bits = binario.toCharArray();
         StringBuilder result= new StringBuilder();
