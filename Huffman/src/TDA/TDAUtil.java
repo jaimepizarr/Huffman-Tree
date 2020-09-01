@@ -97,7 +97,9 @@ public class TDAUtil {
     
     public static void guardarTexto (String nombreArchivo, String texto, HashMap<String,String> mapa){
         guardarTexto(nombreArchivo,texto);
-        guardarTexto(mapa,nombreArchivo.split(".txt")[0]+"_compress.txt");
+        guardarTexto(mapa,nombreArchivo.split("\\.txt")[0]+"_compress.txt");
+
+
     }
     
     private static void guardarTexto(HashMap<String,String> mapa,String nombre){

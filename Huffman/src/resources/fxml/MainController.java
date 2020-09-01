@@ -59,25 +59,14 @@ public class MainController implements Initializable {
         }
         return null;
       }
-   private LinkedList<String> showMultiFileChooser(){
-       LinkedList<String> rutas = new LinkedList<>();
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new ExtensionFilter("TXT files (.txt)", "*.txt"));
-        List<File> f= fc.showOpenMultipleDialog(null);
-        for (File fil : f){
-            rutas.add(fil.getAbsolutePath());
-            
-        }
-       return rutas;
-      }
 
     @FXML
     private void descomprimir(javafx.event.ActionEvent event) {
-        LinkedList<String>  rutas =showMultiFileChooser();
-        Map<String,String> mapDecode=reverse(obtenerMapa(rutas.get(1)));
-        String texto= TDAUtil.leerTexto(rutas.get(0));
+        String  ruta =showFileChooser();
+        Map<String,String> mapDecode=reverse(obtenerMapa(ruta.split("\\.txt")[0]+"_compress.txt"));
+        String texto= TDAUtil.leerTexto(ruta);
         String decode=HuffmanTree.decodificar(texto, mapDecode);
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutas.get(0)))){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(ruta))){
             bw.write(decode);      
         } catch (IOException ex) {
             ErrorAlert.alertError(ex.getMessage());
