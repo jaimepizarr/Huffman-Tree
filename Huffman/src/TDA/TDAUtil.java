@@ -63,13 +63,11 @@ public class TDAUtil {
         int espaciosExtras = 0;
         if (binario.length() % 4 != 0) {
             espaciosExtras = (((binario.length() / 4)+1)*4)-binario.length() ;
-
             binario += "0".repeat(espaciosExtras);
         }
         for (int i = 0; i < binario.length(); i += 4) {
             char[] array = new char[4];
             binario.getChars(i, i + 4, array, 0);
-            System.out.println(array);
             int decimal = Integer.parseInt(String.copyValueOf(array), 2);
             String hexadecimal = Integer.toString(decimal, 16).toUpperCase();
             sb.append(hexadecimal);
